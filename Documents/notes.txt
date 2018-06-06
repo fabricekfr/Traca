@@ -1,0 +1,3 @@
+sqlite-netFx46-setup-bundle-x86-2015-1.0.108.0.exe
+Visual studio 2015
+System.Data.SQLite.1.0.108 et dependences
