@@ -41,5 +41,20 @@ namespace DataAccess
             }
         }
 
+        public static void InitializeDatabase()
+        {
+            using (SQLiteConnection db = new SQLiteConnection("Filename=sqliteSample.db"))
+            {
+                db.Open();
+
+                String tableCommand = "CREATE TABLE IF NOT " + "EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "Text_Entry NVARCHAR(2048) NULL)";
+
+                SQLiteCommand createTable = new SQLiteCommand(tableCommand, db);
+
+                createTable.ExecuteReader();
+            }
+        }
+
     }
 }
