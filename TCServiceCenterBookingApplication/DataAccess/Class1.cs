@@ -22,22 +22,21 @@ namespace DataAccess
 
             var centerTypes = ds.Tables["CenterTypes"];
 
+            using (var con = new SQLiteConnection("Data Source=TCDatabase.db;Version=3;"))
+            {
+                con.Open();
+
+                var cmd = con.CreateCommand();
+                cmd.CommandText = string.Format("SELECT * FROM {0}", centerTypes.TableName);
+                var adapter = new SQLiteDataAdapter(cmd);
+                SQLiteCommandBuilder builder = new SQLiteCommandBuilder(adapter);
+                adapter.Update(centerTypes);
+                con.Close();
+            }
+
             foreach (DataRow centerTypesRow in centerTypes.Rows)
             {
                 Console.WriteLine(centerTypesRow["Value"]);
-
-                //var insertSQL = new SQLiteCommand("INSERT INTO CenterType (Id, Value) VALUES (?,?)", sql_con);
-                //insertSQL.Parameters.Add(centerTypesRow["Id"]);
-                //insertSQL.Parameters.Add(centerTypesRow["Value"]);
-                //try
-                //{
-                //    insertSQL.ExecuteNonQuery();
-                //}
-                //catch (Exception ex)
-                //{
-                //    throw new Exception(ex.Message);
-                //}
-
             }
         }
 
