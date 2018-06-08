@@ -11,9 +11,16 @@ namespace DataAccessTest
         [Test]
         public void TestMethod1()
         {
-            var sut = new Class1();
+            var sut = new TCDatabase();
+            sut.InitializeDatabase();
             sut.Load();
-            //sut.InitializeDatabase();
+        }
+
+        [Test]
+        public void InitializeDatabase()
+        {
+            var sut = new TCDatabase();
+            sut.InitializeDatabase();
         }
     }
 }
