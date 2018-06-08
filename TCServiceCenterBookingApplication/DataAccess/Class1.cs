@@ -26,31 +26,31 @@ namespace DataAccess
             {
                 Console.WriteLine(centerTypesRow["Value"]);
 
-                var insertSQL = new SQLiteCommand("INSERT INTO CenterType (Id, Value) VALUES (?,?)", sql_con);
-                insertSQL.Parameters.Add(centerTypesRow["Id"]);
-                insertSQL.Parameters.Add(centerTypesRow["Value"]);
-                try
-                {
-                    insertSQL.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
+                //var insertSQL = new SQLiteCommand("INSERT INTO CenterType (Id, Value) VALUES (?,?)", sql_con);
+                //insertSQL.Parameters.Add(centerTypesRow["Id"]);
+                //insertSQL.Parameters.Add(centerTypesRow["Value"]);
+                //try
+                //{
+                //    insertSQL.ExecuteNonQuery();
+                //}
+                //catch (Exception ex)
+                //{
+                //    throw new Exception(ex.Message);
+                //}
 
             }
         }
 
-        public static void InitializeDatabase()
+        public void InitializeDatabase()
         {
-            using (SQLiteConnection db = new SQLiteConnection("Filename=sqliteSample.db"))
+            using (var db = new SQLiteConnection("Data Source=TCDatabase.db;Version=3;"))
             {
                 db.Open();
 
-                String tableCommand = "CREATE TABLE IF NOT " + "EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                var tableCommand = "CREATE TABLE IF NOT " + "EXISTS MyTable (Primary_Key INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "Text_Entry NVARCHAR(2048) NULL)";
 
-                SQLiteCommand createTable = new SQLiteCommand(tableCommand, db);
+                var createTable = new SQLiteCommand(tableCommand, db);
 
                 createTable.ExecuteReader();
             }

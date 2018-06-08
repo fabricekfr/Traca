@@ -12,7 +12,8 @@ namespace DataAccessTest
         public void TestMethod1()
         {
             var sut = new Class1();
-            sut.Load();
+            //sut.Load();
+            sut.InitializeDatabase();
         }
     }
 }
