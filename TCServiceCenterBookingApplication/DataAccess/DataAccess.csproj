@@ -74,6 +74,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="centers.json" />
     <None Include="packages.config" />
     <None Include="TCDatabase" />
   </ItemGroup>
