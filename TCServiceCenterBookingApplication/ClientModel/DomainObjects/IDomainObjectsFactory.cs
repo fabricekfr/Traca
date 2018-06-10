@@ -3,6 +3,6 @@
     public interface IDomainObjectsFactory
     {
         ICenterType CreateCenterType();
-        ICenterType CreateCenterType(uint id, string value);
+        ICenter CreateCenter();
     }
 }

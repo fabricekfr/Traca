@@ -33,8 +33,8 @@ namespace DataAccess
 
             foreach (DataRow centerTypesRow in centerTypes.Rows)
             {
-                uint id;
-                if (uint.TryParse(centerTypesRow["Id"].ToString(), out id))
+                int id;
+                if (int.TryParse(centerTypesRow["Id"].ToString(), out id))
                     commandText += InsertCenterType(id, centerTypesRow["Value"].ToString());
             }
 
@@ -48,9 +48,9 @@ namespace DataAccess
 
             foreach (DataRow centerTypesRow in centers.Rows)
             {
-                uint id, centerTypeId;
-                uint.TryParse(centerTypesRow["Id"].ToString(), out id);
-                uint.TryParse(centerTypesRow["CenterTypeId"].ToString(), out centerTypeId);
+                int id, centerTypeId;
+                int.TryParse(centerTypesRow["Id"].ToString(), out id);
+                int.TryParse(centerTypesRow["CenterTypeId"].ToString(), out centerTypeId);
 
                 commandText += InsertCenter(id, centerTypesRow["Name"].ToString(), centerTypesRow["StreetAddress"].ToString(), centerTypeId);
             }
@@ -62,7 +62,7 @@ namespace DataAccess
 
         #region Helpers
 
-        private string InsertCenterType(uint id, string value)
+        private string InsertCenterType(int id, string value)
         {
 
             if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
@@ -76,7 +76,7 @@ namespace DataAccess
             return $"'{value.Replace("'", "''")}'";
         }
 
-        private string InsertCenter(uint id, string name, string streetAddress, uint centerTypeId)
+        private string InsertCenter(int id, string name, string streetAddress, int centerTypeId)
         {
 
             if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));

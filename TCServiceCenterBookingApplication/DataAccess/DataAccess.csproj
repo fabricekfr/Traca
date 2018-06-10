@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDAO.cs" />
+    <Compile Include="CenterDAO.cs" />
     <Compile Include="CenterTypeDAO.cs" />
     <Compile Include="DataAccessObjectsFactory.cs" />
     <Compile Include="Helpers.cs" />

@@ -73,6 +73,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CenterDAOTest.cs" />
     <Compile Include="CenterTypeDAOTest.cs" />
     <Compile Include="TCDatabaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

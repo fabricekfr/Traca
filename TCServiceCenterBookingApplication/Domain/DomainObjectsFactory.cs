@@ -9,9 +9,9 @@ namespace Domain
             return new CenterType();
         }
 
-        public ICenterType CreateCenterType(uint id, string value)
+        public ICenter CreateCenter()
         {
-            return new CenterType(id, value);
+            return new Center();
         }
     }
 }

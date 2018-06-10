@@ -2,7 +2,7 @@
 {
     public interface ICenterType : IDomainObject
     {
-        uint Id { get; set; }
+        int Id { get; set; }
         string Value { get; set; }
     }
 }

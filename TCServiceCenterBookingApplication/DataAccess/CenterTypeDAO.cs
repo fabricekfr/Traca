@@ -25,7 +25,7 @@ namespace DataAccess
             }
         }
 
-        public ICenterType GetById(uint id)
+        public ICenterType GetById(int id)
         {
             if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
             using (var command = new SQLiteCommand($"SELECT * FROM CenterType WHERE Id = {id}"))
@@ -50,7 +50,7 @@ namespace DataAccess
         public override ICenterType MapRecord(SQLiteDataReader dataReader)
         {
             var centerType = _DomainObjectsFactory.CreateCenterType();
-            centerType.Id = (uint) dataReader.GetInt32(dataReader.GetOrdinal(nameof(ICenterType.Id)));
+            centerType.Id = dataReader.GetInt32(dataReader.GetOrdinal(nameof(ICenterType.Id)));
             centerType.Value = (string) dataReader[nameof(ICenterType.Value)];
             return centerType;
         }
