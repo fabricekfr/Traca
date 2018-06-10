@@ -15,14 +15,14 @@ namespace DataAccess
 
         public static DataSet LoadJsonFile()
         {
-            var xmlNode = JsonConvert.DeserializeXmlNode(File.ReadAllText($"{GetExecutingAssemblyPath()}/centers.json"), "RootObject");
+            var xmlNode = JsonConvert.DeserializeXmlNode(File.ReadAllText($"{GetExecutingAssemblyPath()}/Files/centers.json"), "RootObject");
             var dataSet = new DataSet("Json Data");
             var nodeReader = new XmlNodeReader(xmlNode);
             dataSet.ReadXml(nodeReader);
             return dataSet;
         }
 
-        internal static string GetExecutingAssemblyPath()
+        public static string GetExecutingAssemblyPath()
         {
             var executable = Assembly.GetExecutingAssembly().Location;
             var path = Path.GetDirectoryName(executable);

@@ -6,10 +6,14 @@ namespace DataAccess
 {
     public class TCDatabase
     {
+        #region Public methods
+
         public void InitializeDatabase()
         {
-            SQLiteConnection.CreateFile($"{nameof(TCDatabase)}.db");
-            using (var sqLiteConnection = new SQLiteConnection($"data source={nameof(TCDatabase)}.db"))
+            var databasePath = $"{Helpers.GetExecutingAssemblyPath()}/{nameof(TCDatabase)}.db";
+            SQLiteConnection.CreateFile(databasePath);
+
+            using (var sqLiteConnection = new SQLiteConnection($"data source={databasePath}"))
             {
                 using (var sqLiteCommand = new SQLiteCommand(sqLiteConnection))
                 {
@@ -22,50 +26,93 @@ namespace DataAccess
 
         }
 
-        public void Load()
+        public void InitializeCenterTypesTable()
         {
             var centerTypes = Helpers.LoadJsonFile().Tables["CenterTypes"];
             var commandText = string.Empty;
-            foreach (DataRow centerTypesRow in centerTypes.Rows)
-            {
-                int id;
-                if (int.TryParse(centerTypesRow["Id"].ToString(), out id))
-                    commandText += InsertStatement(id, centerTypesRow["Value"].ToString());
-            }
-
-            using (var con = new SQLiteConnection("Data Source=TCDatabase.db;Version=3;"))
-            {
-                con.Open();
-
-                var cmd = con.CreateCommand();
-                cmd.CommandText = commandText;
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
 
             foreach (DataRow centerTypesRow in centerTypes.Rows)
             {
-                Console.WriteLine(centerTypesRow["Value"]);
+                uint id;
+                if (uint.TryParse(centerTypesRow["Id"].ToString(), out id))
+                    commandText += InsertCenterType(id, centerTypesRow["Value"].ToString());
             }
+
+            CreateTable(commandText);
         }
-        
-        private string InsertStatement(int id, string value)
+
+        public void InitializeCentersTable()
+        {
+            var centers = Helpers.LoadJsonFile().Tables["Centers"];
+            var commandText = string.Empty;
+
+            foreach (DataRow centerTypesRow in centers.Rows)
+            {
+                uint id, centerTypeId;
+                uint.TryParse(centerTypesRow["Id"].ToString(), out id);
+                uint.TryParse(centerTypesRow["CenterTypeId"].ToString(), out centerTypeId);
+
+                commandText += InsertCenter(id, centerTypesRow["Name"].ToString(), centerTypesRow["StreetAddress"].ToString(), centerTypeId);
+            }
+
+            CreateTable(commandText);
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private string InsertCenterType(uint id, string value)
         {
 
             if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
-            return $"INSERT INTO CenterType (Id, Value) VALUES ({id}, {FormatToSqLiteStreing(value)}); ";
+            return $"INSERT INTO CenterType (Id, Value) VALUES ({id}, {FormatToSqLiteString(value)}); ";
         }
 
-        private static string FormatToSqLiteStreing(string value)
+        private static string FormatToSqLiteString(string value)
         {
             return $"'{value.Replace("'", "''")}'";
         }
 
-        private string InsertStatement2(int id, string value)
+        private string InsertCenter(uint id, string name, string streetAddress, uint centerTypeId)
         {
-            return $"INSERT INTO Center (Id, Value) VALUES ({id}, {value}); ";
+
+            if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
+            if (centerTypeId <= 0) throw new ArgumentOutOfRangeException(nameof(centerTypeId));
+            if (name == null) throw new ArgumentNullException(nameof(name));
+            streetAddress = string.IsNullOrWhiteSpace(streetAddress) ? string.Empty : streetAddress;
+
+            return "INSERT INTO Center (Id, Name, StreetAddress, CenterTypeId) " +
+                   $"VALUES ({id}, " +
+                           $"{FormatToSqLiteString(name)}, " +
+                           $"{FormatToSqLiteString(streetAddress)}, " +
+                           $"{centerTypeId}); ";
         }
+
+        private static void CreateTable(string commandText)
+        {
+            var databasePath = $"{Helpers.GetExecutingAssemblyPath()}/{nameof(TCDatabase)}.db";
+            try
+            {
+                using (var connection = new SQLiteConnection($"Data Source={databasePath};Version=3;"))
+                {
+                    connection.Open();
+
+                    var command = connection.CreateCommand();
+                    command.CommandText = commandText;
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        #endregion
     }
 }

@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="DataAccessObjects\ICenterTypeDAO.cs" />
     <Compile Include="DomainObjects\ICenterType.cs" />
+    <Compile Include="DomainObjects\IDomainObject.cs" />
+    <Compile Include="DomainObjects\IDomainObjectsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

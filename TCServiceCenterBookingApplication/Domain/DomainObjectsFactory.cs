@@ -2,20 +2,16 @@
 
 namespace Domain
 {
-    public class DomainObjectsFactory
+    public class DomainObjectsFactory : IDomainObjectsFactory
     {
-        private DomainObjectsFactory()
-        {
-        }
-
-        public static DomainObjectsFactory GetInstance()
-        {
-            return new DomainObjectsFactory();
-        }
-        
         public ICenterType CreateCenterType()
         {
             return new CenterType();
+        }
+
+        public ICenterType CreateCenterType(uint id, string value)
+        {
+            return new CenterType(id, value);
         }
     }
 }

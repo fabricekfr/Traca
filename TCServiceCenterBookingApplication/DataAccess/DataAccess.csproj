@@ -67,9 +67,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDAO.cs" />
     <Compile Include="CenterTypeDAO.cs" />
     <Compile Include="DataAccessObjectsFactory.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="IDataAccessObjectsFactory.cs" />
     <Compile Include="TCDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

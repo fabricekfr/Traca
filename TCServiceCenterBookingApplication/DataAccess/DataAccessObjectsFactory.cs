@@ -1,21 +1,17 @@
 ﻿
+using System;
 using System.Data.SQLite;
 using ClientModel.DataAccessObjects;
 
 namespace DataAccess
 {
-    public class DataAccessObjectsFactory
+    public class DataAccessObjectsFactory : IDataAccessObjectsFactory
     {
         private readonly string _DatabasePath;
 
-        private DataAccessObjectsFactory()
+        public DataAccessObjectsFactory()
         {
             _DatabasePath = $"{Helpers.GetExecutingAssemblyPath()}/{nameof(TCDatabase)}.db";
-        }
-
-        public static DataAccessObjectsFactory GetInstance()
-        {
-            return new DataAccessObjectsFactory();
         }
 
         public SQLiteConnection GetConnection()
@@ -25,7 +21,8 @@ namespace DataAccess
 
         public ICenterTypeDAO CreateCenterTypeDAO()
         {
-            return new CenterTypeDAO(this);
+            throw new NotImplementedException();
+            return null; //new CenterTypeDAO(this);
         }
     }
 }

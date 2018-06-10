@@ -5,7 +5,9 @@ namespace ClientModel.DataAccessObjects
 {
     public interface ICenterTypeDAO
     {
-        IList<ICenterType> GetCenterTypes();
-        ICenterType GetCenterType(uint id);
+        IEnumerable<ICenterType> GetAll();
+        ICenterType GetById(uint id);
+        void Add(ICenterType centerType);
+        void AddRange(IEnumerable<ICenterType> centerTypes);
     }
 }

@@ -1,21 +1,20 @@
 ﻿SELECT 1;
 PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
-CREATE TABLE [CenterType] (
+CREATE TABLE IF NOT EXISTS [CenterType] (
   [Id] INTEGER  NOT NULL
 , [Value] text NOT NULL
 , CONSTRAINT [sqlite_master_PK_CenterType] PRIMARY KEY ([Id])
 );
-CREATE TABLE [Center] (
+CREATE TABLE IF NOT EXISTS [Center] (
   [Id] INTEGER  NOT NULL
 , [Name] text NOT NULL
 , [StreetAddress] text NULL
-, [CenterTypeDesc] text NULL
 , [CenterTypeId] bigint  NOT NULL
 , CONSTRAINT [sqlite_master_PK_Center] PRIMARY KEY ([Id])
 , FOREIGN KEY ([CenterTypeId]) REFERENCES [CenterType] ([Id]) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-CREATE TABLE [Appointment] (
+CREATE TABLE IF NOT EXISTS [Appointment] (
   [Id] INTEGER  NOT NULL
 , [ClientFullName] text NOT NULL
 , [Date] date NOT NULL
