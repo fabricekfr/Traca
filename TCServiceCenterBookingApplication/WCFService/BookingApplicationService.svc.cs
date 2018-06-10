@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using ClientModel.DomainObjects;
 
 namespace WCFService
 {
@@ -30,13 +31,14 @@ namespace WCFService
             return composite;
         }*/
 
-        public void DoWork()
-        {
-            throw new NotImplementedException();
-        }
         public string Welcome(string name)
         {
             return "Welcome to the first WCF Web Service Application " + name;
+        }
+
+        List<ICenter> IBookingApplicationService.GetAllCenters()
+        {
+            throw new NotImplementedException();
         }
     }
 }

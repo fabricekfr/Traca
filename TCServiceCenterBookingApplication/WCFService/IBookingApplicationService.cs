@@ -1,52 +1,42 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using System.Text;
+
+using ClientModel.DomainObjects;
 
 namespace WCFService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
     public interface IBookingApplicationService
     {
 
-        /*[OperationContract]
-        string GetData(int value);
-
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);*/
-
-        [OperationContract]  
-        void DoWork();  
+        [WebGet(UriTemplate = "center", ResponseFormat = WebMessageFormat.Json)]
+        List<ICenter> GetAllCenters();  
 
         [OperationContract]  
         [WebGet(UriTemplate = "/Welcome/{name}", ResponseFormat = WebMessageFormat.Json)]  
-        string Welcome(string name);  
+        string Welcome(string name);
+
+       
     }
 
 
-    /*// Use a data contract as illustrated in the sample below to add composite types to service operations.
+   
     [DataContract]
-    public class CompositeType
+    public class Center : ICenter
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
         [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
+        public int Id { get; set; }
         [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
-    }*/
+        public string Name { get; set; }
+        [DataMember]
+        public string StreetAddress { get; set; }
+        [DataMember]
+        public int CenterTypeId { get; set; }
+        [DataMember]
+        public string CenterTypeValue { get; set; }
+    }
 }

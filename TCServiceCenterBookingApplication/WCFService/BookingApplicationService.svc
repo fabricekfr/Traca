@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="WCFService.BookingApplicationService" CodeBehind="BookingApplicationService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="WCFService.BookingApplicationService" CodeBehind="BookingApplicationService.svc.cs" Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration"%>
