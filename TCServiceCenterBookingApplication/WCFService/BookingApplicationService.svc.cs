@@ -121,6 +121,23 @@ namespace WCFService
             return "SUCCESS : The appointment has been updated.";
         }
 
+        public string DeleteAppointment(string id)
+        {
+            int appointmentId;
+            if (!int.TryParse(id, out appointmentId) || appointmentId == 0)
+                throw new WebFaultException<string>($"Invalid appointment Id {id}", HttpStatusCode.BadRequest);
+
+            if (_AppointmentDAO.GetById(appointmentId) == null)
+                throw new WebFaultException<string>($"ERROR : The appointment #{id} not exist!", HttpStatusCode.BadRequest);
+
+            var numberOfRows = _AppointmentDAO.(appointmentId, appointment);
+
+            if (numberOfRows == 0)
+                throw new WebFaultException<string>("ERROR : Unable to update a new appointment with given information!", HttpStatusCode.InternalServerError);
+
+            return "SUCCESS : The appointment has been updated.";
+        }
+
         #endregion
     }
 }

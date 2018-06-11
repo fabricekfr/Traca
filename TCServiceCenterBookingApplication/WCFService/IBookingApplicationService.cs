@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -36,6 +34,10 @@ namespace WCFService
         [OperationContract]
         [WebInvoke(UriTemplate = "/appointments/{id}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "PUT")]
         string UpdateAppointment(string id, AppointmentPutDataContract appointment);
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/appointments/{id}", ResponseFormat = WebMessageFormat.Json, Method = "DELETE")]
+        string DeleteAppointment(string id);
 
     }
 
