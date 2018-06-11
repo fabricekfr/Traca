@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using ClientModel.DataAccessObjects;
 using ClientModel.DomainObjects;
 
 namespace WCFService
@@ -13,6 +14,7 @@ namespace WCFService
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class BookingApplicationService : IBookingApplicationService
     {
+        private readonly ICenterDAO _CenterDAO;
         /*public string GetData(int value)
         {
             return string.Format("You entered: {0}", value);
@@ -31,6 +33,13 @@ namespace WCFService
             return composite;
         }*/
 
+        public BookingApplicationService(ICenterDAO centerDAO)
+        {
+            if (centerDAO == null) throw new ArgumentNullException(nameof(centerDAO));
+            _CenterDAO = centerDAO;
+        }
+
+
         public string Welcome(string name)
         {
             return "Welcome to the first WCF Web Service Application " + name;
@@ -38,7 +47,7 @@ namespace WCFService
 
         List<ICenter> IBookingApplicationService.GetAllCenters()
         {
-            throw new NotImplementedException();
+            return _CenterDAO.GetAll().ToList();
         }
     }
 }

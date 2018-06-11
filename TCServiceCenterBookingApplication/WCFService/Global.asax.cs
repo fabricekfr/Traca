@@ -3,6 +3,7 @@ using System.Web;
 using Castle.Windsor;
 using Castle.Facilities.WcfIntegration;
 using Castle.MicroKernel.Registration;
+using DataAccess;
 
 namespace WCFService
 {
@@ -18,6 +19,17 @@ namespace WCFService
                 .ImplementedBy<BookingApplicationService>()
                 .Named("WCFService.BookingApplicationService"));
             _container.Install(new DIContainerInstaller());
+
+            InitializeDatabase();
+
+        }
+
+        private static void InitializeDatabase()
+        {
+            var tcDatabase = new TCDatabase();
+            tcDatabase.InitializeDatabase();
+            tcDatabase.InitializeCenterTypesTable();
+            tcDatabase.InitializeCentersTable();
         }
     }
 }

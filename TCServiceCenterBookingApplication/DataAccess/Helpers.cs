@@ -10,6 +10,9 @@ namespace DataAccess
     {
         public static string GetCreateDataBaseQuery()
         {
+            string executableLocation = Path.GetDirectoryName(
+                Assembly.GetExecutingAssembly().Location);
+            string xslLocation = Path.Combine(executableLocation, "docx.xsl");
             return File.ReadAllText($"{GetExecutingAssemblyPath()}/Files/CreateDataBaseQuery.sql");
         }
 

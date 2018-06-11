@@ -13,7 +13,7 @@ namespace WCFService
     {
 
         [OperationContract]
-        [WebGet(UriTemplate = "center", ResponseFormat = WebMessageFormat.Json)]
+        [WebGet(UriTemplate = "centers", ResponseFormat = WebMessageFormat.Json)]
         List<ICenter> GetAllCenters();  
 
         [OperationContract]  
