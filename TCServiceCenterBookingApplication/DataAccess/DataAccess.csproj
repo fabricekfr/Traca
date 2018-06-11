@@ -80,15 +80,15 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Files\centers.json">
+    <EmbeddedResource Include="Files\centers.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Files\CreateDataBaseQuery.sql">
+    <EmbeddedResource Include="Files\CreateDataBaseQuery.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClientModel\ClientModel.csproj">
