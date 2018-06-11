@@ -15,6 +15,7 @@ namespace WCFService
             container.Register(Component.For<IDataAccessObjectsFactory>().ImplementedBy<DataAccessObjectsFactory>().LifestyleSingleton());
             container.Register(Component.For<IDomainObjectsFactory>().ImplementedBy<DomainObjectsFactory>().LifestyleSingleton());
             container.Register(Component.For<ICenterDAO>().ImplementedBy<CenterDAO>().LifestyleSingleton());
+            container.Register(Component.For<IAppointmentDAO>().ImplementedBy<AppointmentDAO>().LifestyleSingleton());
         }
     }
 }

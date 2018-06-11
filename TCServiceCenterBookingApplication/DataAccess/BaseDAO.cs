@@ -70,5 +70,21 @@ namespace DataAccess
             }
             return record;
         }
+
+        protected int AddRecord(SQLiteCommand command)
+        {
+            var numberOfRows = 0;
+            command.Connection = _DAOFactory.GetConnection();
+            command.Connection.Open();
+            try
+            {
+                numberOfRows = command.ExecuteNonQuery();
+            }
+            finally
+            {
+                command.Connection.Close();
+            }
+            return numberOfRows;
+        }
     }
 }

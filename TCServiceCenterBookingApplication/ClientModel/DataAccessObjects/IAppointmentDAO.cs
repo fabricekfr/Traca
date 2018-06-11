@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ClientModel.DomainObjects;
 
 namespace ClientModel.DataAccessObjects
@@ -7,5 +8,7 @@ namespace ClientModel.DataAccessObjects
     {
         IEnumerable<IAppointment> GetAll();
         IAppointment GetById(int id);
+        IAppointment GetByDate(DateTime date);
+        int Add(IAppointment appointment);
     }
 }

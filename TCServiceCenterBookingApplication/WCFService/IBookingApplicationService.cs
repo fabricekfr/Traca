@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using ClientModel.DomainObjects;
+using Newtonsoft.Json;
 
 namespace WCFService
 {
@@ -14,15 +15,23 @@ namespace WCFService
 
         [OperationContract]
         [WebGet(UriTemplate = "/centers", ResponseFormat = WebMessageFormat.Json)]
-        IList<Center> GetAllCenters();
+        IList<CenterDataContract> GetAllCenters();
 
         [OperationContract]
         [WebGet(UriTemplate = "/centers/{id}", ResponseFormat = WebMessageFormat.Json)]
-        Center GetCenter(string id);
+        CenterDataContract GetCenter(string id);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/appointments", ResponseFormat = WebMessageFormat.Json)]
-        IList<Appointment> GetAllAppointments();
+        [WebInvoke(UriTemplate = "/appointments", ResponseFormat = WebMessageFormat.Json, Method = "GET")]
+        IList<AppointmentGetDataContract> GetAllAppointments();
+
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/appointments/{id}", ResponseFormat = WebMessageFormat.Json, Method = "GET")]
+        AppointmentGetDataContract GetAppointment(string id);
+        
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/appointments", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST")]
+        string AddAppointment(AppointmentPostDataContract appointment);
 
         [OperationContract]  
         [WebGet(UriTemplate = "/Welcome/{name}", ResponseFormat = WebMessageFormat.Json)]  
@@ -31,12 +40,14 @@ namespace WCFService
        
     }
 
+    #region Data contacts
 
-   
+    #region Center
+
     [DataContract]
-    public class Center
+    public class CenterDataContract
     {
-        public Center(ICenter center)
+        public CenterDataContract(ICenter center)
         {
             Id = center.Id;
             Name = center.Name;
@@ -54,15 +65,19 @@ namespace WCFService
         public string CenterTypeValue { get; set; }
     }
 
+    #endregion
+
+    #region Appointment
+
     [DataContract]
-    public class Appointment
+    public class AppointmentGetDataContract
     {
-        public Appointment(IAppointment appointment)
+        public AppointmentGetDataContract(IAppointment appointment)
         {
             Id = appointment.Id;
             ClientFullName = appointment.ClientFullName;
-            Date = appointment.Date;
-            Center = appointment.Center;
+            Date = appointment.Date.ToString("yyyy-MM-dd");
+            Center = JsonConvert.SerializeObject(appointment.Center, Formatting.Indented);
         }
 
         [DataMember]
@@ -70,8 +85,43 @@ namespace WCFService
         [DataMember]
         public string ClientFullName { get; set; }
         [DataMember]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         [DataMember]
-        public ICenter Center { get; set; }
+        public string Center { get; set; }
     }
+
+    [DataContract]
+    public class AppointmentPostDataContract
+    {
+        [DataMember]
+        public string ClientFullName { get; set; }
+        [DataMember]
+        public string Date { get; set; }
+        [DataMember]
+        public int CenterId { get; set; }
+    }
+
+    [DataContract]
+    public class AppointmentPutDataContract
+    {
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string ClientFullName { get; set; }
+        [DataMember]
+        public string Date { get; set; }
+        [DataMember]
+        public int CenterId { get; set; }
+    }
+
+    [DataContract]
+    public class AppointmentDeleteDataContract
+    {
+        [DataMember]
+        public int Id { get; set; }
+    }
+
+    #endregion
+
+    #endregion
 }

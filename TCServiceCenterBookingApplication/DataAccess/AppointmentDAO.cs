@@ -46,6 +46,34 @@ namespace DataAccess
             }
         }
 
+        public IAppointment GetByDate(DateTime date)
+        {
+            var sqlComandText = "SELECT Appointment.Id, Appointment.ClientFullName, Appointment.[Date], Center.StreetAddress, Center.Name, " +
+                                "       Appointment.Center, CenterType.Value AS CenterTypeValue, Center.CenterTypeId " +
+                                "FROM Appointment INNER JOIN Center ON Appointment.Center = Center.Id " +
+                                "                 INNER JOIN CenterType ON Center.CenterTypeId = CenterType.Id " +
+                                $"WHERE date(Appointment.[Date]) = date(\"{date.Date:yyyy-MM-dd}\")";
+
+            using (var command = new SQLiteCommand(sqlComandText))
+            {
+                return GetRecord(command);
+            }
+        }
+
+        public int Add(IAppointment appointment)
+        {
+            var sqlComandText = "INSERT INTO Appointment (ClientFullName, [Date], Center) " +
+                                $"VALUES (\"{appointment.ClientFullName}\", " +
+                                $"\"{appointment.Date.Date}\", " +
+                                $"{appointment.Center.Id})";
+
+
+            using (var command = new SQLiteCommand(sqlComandText))
+            {
+                return AddRecord(command);
+            }
+        }
+
         public override IAppointment MapRecord(SQLiteDataReader dataReader)
         {
             var appointment = _DomainObjectsFactory.CreateAppointment();
