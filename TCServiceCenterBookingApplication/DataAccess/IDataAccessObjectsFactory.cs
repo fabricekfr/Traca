@@ -6,6 +6,5 @@ namespace DataAccess
     public interface IDataAccessObjectsFactory
     {
         SQLiteConnection GetConnection();
-        ICenterTypeDAO CreateCenterTypeDAO();
     }
 }

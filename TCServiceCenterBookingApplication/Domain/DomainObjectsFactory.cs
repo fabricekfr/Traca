@@ -13,5 +13,10 @@ namespace Domain
         {
             return new Center();
         }
+
+        public IAppointment CreateAppointment()
+        {
+            return new Appointment(CreateCenter());
+        }
     }
 }

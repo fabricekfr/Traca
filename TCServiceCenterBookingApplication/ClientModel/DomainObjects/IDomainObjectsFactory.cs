@@ -4,5 +4,6 @@
     {
         ICenterType CreateCenterType();
         ICenter CreateCenter();
+        IAppointment CreateAppointment();
     }
 }

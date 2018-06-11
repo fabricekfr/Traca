@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentDAO.cs" />
     <Compile Include="BaseDAO.cs" />
     <Compile Include="CenterDAO.cs" />
     <Compile Include="CenterTypeDAO.cs" />

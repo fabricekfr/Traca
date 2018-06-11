@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -18,6 +19,10 @@ namespace WCFService
         [OperationContract]
         [WebGet(UriTemplate = "/centers/{id}", ResponseFormat = WebMessageFormat.Json)]
         Center GetCenter(string id);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/appointments", ResponseFormat = WebMessageFormat.Json)]
+        IList<Appointment> GetAllAppointments();
 
         [OperationContract]  
         [WebGet(UriTemplate = "/Welcome/{name}", ResponseFormat = WebMessageFormat.Json)]  
@@ -47,5 +52,26 @@ namespace WCFService
         public string StreetAddress { get; set; }
         [DataMember]
         public string CenterTypeValue { get; set; }
+    }
+
+    [DataContract]
+    public class Appointment
+    {
+        public Appointment(IAppointment appointment)
+        {
+            Id = appointment.Id;
+            ClientFullName = appointment.ClientFullName;
+            Date = appointment.Date;
+            Center = appointment.Center;
+        }
+
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string ClientFullName { get; set; }
+        [DataMember]
+        public DateTime Date { get; set; }
+        [DataMember]
+        public ICenter Center { get; set; }
     }
 }

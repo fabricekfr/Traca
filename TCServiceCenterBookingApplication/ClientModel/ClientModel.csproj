@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccessObjects\IAppointmentDAO.cs" />
     <Compile Include="DataAccessObjects\ICenterDAO.cs" />
     <Compile Include="DataAccessObjects\ICenterTypeDAO.cs" />
+    <Compile Include="DomainObjects\IAppointment.cs" />
     <Compile Include="DomainObjects\ICenter.cs" />
     <Compile Include="DomainObjects\ICenterType.cs" />
     <Compile Include="DomainObjects\IDomainObject.cs" />

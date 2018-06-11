@@ -32,9 +32,9 @@ namespace DataAccess
         {
             if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
 
-            string sqlComandText = "SELECT Center.Id, Center.Name, Center.StreetAddress, Center.CenterTypeId, CenterType.Value AS CenterTypeValue " +
-                                   "FROM Center INNER JOIN CenterType ON Center.CenterTypeId = CenterType.Id " +
-                                   $"WHERE Center.Id = {id}";
+            var sqlComandText = "SELECT Center.Id, Center.Name, Center.StreetAddress, Center.CenterTypeId, CenterType.Value AS CenterTypeValue " +
+                                "FROM Center INNER JOIN CenterType ON Center.CenterTypeId = CenterType.Id " +
+                               $"WHERE Center.Id = {id}";
 
             using (var command = new SQLiteCommand(sqlComandText))
             {

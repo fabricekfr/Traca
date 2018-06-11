@@ -1,7 +1,5 @@
 ﻿
-using System;
 using System.Data.SQLite;
-using ClientModel.DataAccessObjects;
 
 namespace DataAccess
 {
@@ -17,12 +15,6 @@ namespace DataAccess
         public SQLiteConnection GetConnection()
         {
             return new SQLiteConnection($"Data Source={_DatabasePath};Version=3;");
-        }
-
-        public ICenterTypeDAO CreateCenterTypeDAO()
-        {
-            throw new NotImplementedException();
-            return null; //new CenterTypeDAO(this);
         }
     }
 }

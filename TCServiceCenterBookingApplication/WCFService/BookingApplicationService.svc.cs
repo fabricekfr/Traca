@@ -9,11 +9,15 @@ namespace WCFService
     public class BookingApplicationService : IBookingApplicationService
     {
         private readonly ICenterDAO _CenterDAO;
+        private readonly IAppointmentDAO _AppointmentDAO;
 
-        public BookingApplicationService(ICenterDAO centerDAO)
+        public BookingApplicationService(ICenterDAO centerDAO, IAppointmentDAO appointmentDAO)
         {
             if (centerDAO == null) throw new ArgumentNullException(nameof(centerDAO));
+            if (appointmentDAO == null) throw new ArgumentNullException(nameof(appointmentDAO));
+
             _CenterDAO = centerDAO;
+            _AppointmentDAO = appointmentDAO;
         }
 
 
@@ -24,15 +28,21 @@ namespace WCFService
 
         IList<Center> IBookingApplicationService.GetAllCenters()
         {
-            return _CenterDAO.GetAll().Select(center => new Center(center)).ToList();
+            return _CenterDAO.GetAll().Where(x => x != null).Select(center => new Center(center)).ToList();
         }
 
         public Center GetCenter(string id)
         {
             int centerId;
-            if (int.TryParse(id, out centerId))
-                return new Center(_CenterDAO.GetById(centerId));
-            throw new FaultException("Invalid center Id");
+            if (!int.TryParse(id, out centerId)) throw new FaultException("Invalid center Id");
+            var result = _CenterDAO.GetById(centerId);
+            return result == null? null : new Center(result);
+
+        }
+
+        public IList<Appointment> GetAllAppointments()
+        {
+            return _AppointmentDAO.GetAll().Where(x => x != null).Select(appointment => new Appointment(appointment)).ToList();
         }
     }
 }
