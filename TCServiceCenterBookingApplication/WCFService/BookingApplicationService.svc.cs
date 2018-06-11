@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using ClientModel.DataAccessObjects;
 
 namespace WCFService
@@ -24,6 +25,14 @@ namespace WCFService
         IList<Center> IBookingApplicationService.GetAllCenters()
         {
             return _CenterDAO.GetAll().Select(center => new Center(center)).ToList();
+        }
+
+        public Center GetCenter(string id)
+        {
+            int centerId;
+            if (int.TryParse(id, out centerId))
+                return new Center(_CenterDAO.GetById(centerId));
+            throw new FaultException("Invalid center Id");
         }
     }
 }

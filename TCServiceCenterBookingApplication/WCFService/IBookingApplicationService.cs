@@ -12,8 +12,12 @@ namespace WCFService
     {
 
         [OperationContract]
-        [WebGet(UriTemplate = "centers", ResponseFormat = WebMessageFormat.Json)]
-        IList<Center> GetAllCenters();  
+        [WebGet(UriTemplate = "/centers", ResponseFormat = WebMessageFormat.Json)]
+        IList<Center> GetAllCenters();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/centers/{id}", ResponseFormat = WebMessageFormat.Json)]
+        Center GetCenter(string id);
 
         [OperationContract]  
         [WebGet(UriTemplate = "/Welcome/{name}", ResponseFormat = WebMessageFormat.Json)]  
