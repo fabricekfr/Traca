@@ -10,5 +10,6 @@ namespace ClientModel.DataAccessObjects
         IAppointment GetById(int id);
         IAppointment GetByDate(DateTime date);
         int Add(IAppointment appointment);
+        int Update(int id, IAppointment appointment);
     }
 }

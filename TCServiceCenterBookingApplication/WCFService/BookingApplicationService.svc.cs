@@ -26,8 +26,7 @@ namespace WCFService
             _AppointmentDAO = appointmentDAO;
             _DomainObjectsFactory = domainObjectsFactory;
         }
-
-
+        
         #region Center
 
         IList<CenterDataContract> IBookingApplicationService.GetAllCenters()
@@ -38,7 +37,8 @@ namespace WCFService
         public CenterDataContract GetCenter(string id)
         {
             int centerId;
-            if (!int.TryParse(id, out centerId)) throw new FaultException("Invalid center Id");
+            if (!int.TryParse(id, out centerId) || centerId==0)
+                throw new WebFaultException<string>($"Invalid center Id {id}", HttpStatusCode.BadRequest);
             var result = _CenterDAO.GetById(centerId);
             return result == null? null : new CenterDataContract(result);
         }
@@ -49,14 +49,15 @@ namespace WCFService
 
         public IList<AppointmentGetDataContract> GetAllAppointments()
         {
-            var a = _AppointmentDAO.GetAll().Where(x => x != null).Select(appointment => new AppointmentGetDataContract(appointment)).ToList();
             return _AppointmentDAO.GetAll().Where(x => x != null).Select(appointment => new AppointmentGetDataContract(appointment)).ToList();
         }
 
         public AppointmentGetDataContract GetAppointment(string id)
         {
             int appointmentId;
-            if (!int.TryParse(id, out appointmentId)) throw new FaultException("Invalid appointment Id");
+            if (!int.TryParse(id, out appointmentId) || appointmentId == 0 )
+                throw new WebFaultException<string>($"Invalid appointment Id {id}", HttpStatusCode.BadRequest);
+
             var result = _AppointmentDAO.GetById(appointmentId);
             return result == null ? null : new AppointmentGetDataContract(result);
         }
@@ -75,7 +76,7 @@ namespace WCFService
 
             if (_CenterDAO.GetById(appointmentPostDataContract.CenterId) == null)
                 throw new WebFaultException<string>($"ERROR : The center #{appointmentPostDataContract.CenterId} not exist!", HttpStatusCode.BadRequest);
-  ;
+  
             var appointment = _DomainObjectsFactory.CreateAppointment();
             appointment.ClientFullName = appointmentPostDataContract.ClientFullName;
             appointment.Date = date;
@@ -89,16 +90,37 @@ namespace WCFService
             return "SUCCESS : The appointment has been added.";
         }
 
-        #endregion
-
-
-
-
-
-        public string Welcome(string name)
+        public string UpdateAppointment(string id, AppointmentPutDataContract appointmentPostDataContract)
         {
-            return "Welcome to the first WCF Web Service Application " + name;
+
+            int appointmentId;
+            if (!int.TryParse(id, out appointmentId) || appointmentId == 0)
+                throw new WebFaultException<string>($"Invalid appointment Id {id}", HttpStatusCode.BadRequest);
+
+            if (_AppointmentDAO.GetById(appointmentId) == null)
+                throw new WebFaultException<string>($"ERROR : The appointment #{id} not exist!", HttpStatusCode.BadRequest);
+
+            if (appointmentId != appointmentPostDataContract.Id && GetAppointment(appointmentPostDataContract.Id.ToString()) != null)
+                throw new WebFaultException<string>($"ERROR : The appointment #{id} Already exists!", HttpStatusCode.BadRequest);
+
+            DateTime date;
+            if (!DateTime.TryParseExact(appointmentPostDataContract.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+                throw new WebFaultException<string>($"ERROR : The expected date format is YYYY-MM-DD but was {appointmentPostDataContract.Date}!", HttpStatusCode.BadRequest);
+            
+            var appointment = _DomainObjectsFactory.CreateAppointment();
+            appointment.Id = appointmentPostDataContract.Id;
+            appointment.ClientFullName = appointmentPostDataContract.ClientFullName;
+            appointment.Date = date;
+            appointment.Center = _DomainObjectsFactory.CreateCenter();
+            appointment.Center.Id = appointmentPostDataContract.CenterId;
+            var numberOfRows = _AppointmentDAO.Update(appointmentId, appointment);
+
+            if (numberOfRows == 0)
+                throw new WebFaultException<string>("ERROR : Unable to update a new appointment with given information!", HttpStatusCode.InternalServerError);
+
+            return "SUCCESS : The appointment has been updated.";
         }
 
+        #endregion
     }
 }

@@ -33,11 +33,10 @@ namespace WCFService
         [WebInvoke(UriTemplate = "/appointments", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "POST")]
         string AddAppointment(AppointmentPostDataContract appointment);
 
-        [OperationContract]  
-        [WebGet(UriTemplate = "/Welcome/{name}", ResponseFormat = WebMessageFormat.Json)]  
-        string Welcome(string name);
+        [OperationContract]
+        [WebInvoke(UriTemplate = "/appointments/{id}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, Method = "PUT")]
+        string UpdateAppointment(string id, AppointmentPutDataContract appointment);
 
-       
     }
 
     #region Data contacts

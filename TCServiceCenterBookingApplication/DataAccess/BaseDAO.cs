@@ -73,7 +73,7 @@ namespace DataAccess
 
         protected int AddRecord(SQLiteCommand command)
         {
-            var numberOfRows = 0;
+            int numberOfRows;
             command.Connection = _DAOFactory.GetConnection();
             command.Connection.Open();
             try

@@ -74,6 +74,21 @@ namespace DataAccess
             }
         }
 
+        public int Update(int id, IAppointment appointment)
+        {
+            if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
+
+            var sqlComandText = $"UPDATE Appointment SET Id={appointment.Id}, ClientFullName = \"{appointment.ClientFullName}\", " +
+                                $"[Date] = \"{appointment.Date.Date}\", Center = {appointment.Center.Id} " +
+                                $"WHERE Id = {id}";
+
+
+            using (var command = new SQLiteCommand(sqlComandText))
+            {
+                return AddRecord(command);
+            }
+        }
+
         public override IAppointment MapRecord(SQLiteDataReader dataReader)
         {
             var appointment = _DomainObjectsFactory.CreateAppointment();
