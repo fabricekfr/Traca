@@ -1,8 +1,12 @@
-﻿using System;
-using System.Data.SQLite;
-using System.Threading;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
 using DataAccess;
 using NUnit.Framework;
+using System;
+using System.Data.SQLite;
+using System.Threading;
 
 namespace DataAccessTest
 {

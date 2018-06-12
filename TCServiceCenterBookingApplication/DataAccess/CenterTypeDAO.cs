@@ -1,8 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
 using ClientModel.DataAccessObjects;
 using ClientModel.DomainObjects;
+using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
 
 namespace DataAccess
 {
@@ -32,19 +36,6 @@ namespace DataAccess
             {
                 return GetRecord(command);
             }
-        }
-
-        public void Add(ICenterType centerType)
-        {
-            throw new NotImplementedException();
-
-
-            // $"INSERT INTO CenterType (Id, Value) VALUES ({id}, {FormatToSqLiteString(value)}); ";
-        }
-
-        public void AddRange(IEnumerable<ICenterType> centerTypes)
-        {
-            throw new NotImplementedException();
         }
 
         public override ICenterType MapRecord(SQLiteDataReader dataReader)

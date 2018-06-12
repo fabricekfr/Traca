@@ -1,8 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
 using ClientModel.DataAccessObjects;
 using ClientModel.DomainObjects;
+using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
 
 namespace DataAccess
 {

@@ -1,9 +1,13 @@
-﻿using System.Linq;
-using System.Threading;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
 using ClientModel.DomainObjects;
 using DataAccess;
 using NSubstitute;
 using NUnit.Framework;
+using System.Linq;
+using System.Threading;
 
 namespace DataAccessTest
 {

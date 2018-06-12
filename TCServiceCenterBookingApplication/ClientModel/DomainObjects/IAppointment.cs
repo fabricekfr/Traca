@@ -1,4 +1,9 @@
-﻿using System;
+﻿
+// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
+using System;
 
 namespace ClientModel.DomainObjects
 {

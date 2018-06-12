@@ -1,10 +1,12 @@
-﻿using System;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
+using Newtonsoft.Json;
 using System.Data;
 using System.IO;
 using System.Reflection;
 using System.Xml;
-using System.Xml.Xsl;
-using Newtonsoft.Json;
 
 namespace DataAccess
 {

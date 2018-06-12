@@ -1,4 +1,8 @@
-﻿using ClientModel.DomainObjects;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
+using ClientModel.DomainObjects;
 
 namespace Domain
 {
