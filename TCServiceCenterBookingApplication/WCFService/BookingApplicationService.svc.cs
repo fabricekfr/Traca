@@ -40,6 +40,8 @@ namespace WCFService
             if (!int.TryParse(id, out centerId) || centerId==0)
                 throw new WebFaultException<string>($"Invalid center Id {id}", HttpStatusCode.BadRequest);
             var result = _CenterDAO.GetById(centerId);
+
+
             return result == null? null : new CenterDataContract(result);
         }
 
@@ -130,12 +132,12 @@ namespace WCFService
             if (_AppointmentDAO.GetById(appointmentId) == null)
                 throw new WebFaultException<string>($"ERROR : The appointment #{id} not exist!", HttpStatusCode.BadRequest);
 
-            var numberOfRows = _AppointmentDAO.(appointmentId, appointment);
+            var numberOfRows = _AppointmentDAO.Delete(appointmentId);
 
             if (numberOfRows == 0)
-                throw new WebFaultException<string>("ERROR : Unable to update a new appointment with given information!", HttpStatusCode.InternalServerError);
+                throw new WebFaultException<string>("ERROR : Unable to delete an appointment with given information!", HttpStatusCode.InternalServerError);
 
-            return "SUCCESS : The appointment has been updated.";
+            return "SUCCESS : The appointment has been deleted.";
         }
 
         #endregion

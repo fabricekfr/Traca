@@ -38,7 +38,7 @@ namespace DataAccess
                     commandText += InsertCenterType(id, centerTypesRow["Value"].ToString());
             }
 
-            CreateTable(commandText);
+            ExecuteCommand(commandText);
         }
 
         public void InitializeCentersTable()
@@ -55,7 +55,17 @@ namespace DataAccess
                 commandText += InsertCenter(id, centerTypesRow["Name"].ToString(), centerTypesRow["StreetAddress"].ToString(), centerTypeId);
             }
 
-            CreateTable(commandText);
+            ExecuteCommand(commandText);
+        }
+
+        public void InitializeAppointmentsTable()
+        {
+            var commandText = "INSERT INTO Appointment (ClientFullName, [Date], Center) " +
+                              "VALUES (\"John Doe\", \"2018-01-01\", 4);";
+            commandText += "INSERT INTO Appointment (ClientFullName, [Date], Center) " +
+                              "VALUES (\"Martine Duplessi\", \"2018-11-07\", 55);";
+
+            ExecuteCommand(commandText);
         }
 
         #endregion
@@ -91,7 +101,7 @@ namespace DataAccess
                            $"{centerTypeId}); ";
         }
 
-        private static void CreateTable(string commandText)
+        private static void ExecuteCommand(string commandText)
         {
             var databasePath = $"{Helpers.GetExecutingAssemblyPath()}/{nameof(TCDatabase)}.db";
             try

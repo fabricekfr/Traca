@@ -71,7 +71,7 @@ namespace DataAccess
             return record;
         }
 
-        protected int AddRecord(SQLiteCommand command)
+        protected int SetRecord(SQLiteCommand command)
         {
             int numberOfRows;
             command.Connection = _DAOFactory.GetConnection();

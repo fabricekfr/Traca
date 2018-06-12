@@ -30,6 +30,7 @@ namespace WCFService
             tcDatabase.InitializeDatabase();
             tcDatabase.InitializeCenterTypesTable();
             tcDatabase.InitializeCentersTable();
+            tcDatabase.InitializeAppointmentsTable();
         }
     }
 }

@@ -70,7 +70,7 @@ namespace DataAccess
 
             using (var command = new SQLiteCommand(sqlComandText))
             {
-                return AddRecord(command);
+                return SetRecord(command);
             }
         }
 
@@ -85,7 +85,19 @@ namespace DataAccess
 
             using (var command = new SQLiteCommand(sqlComandText))
             {
-                return AddRecord(command);
+                return SetRecord(command);
+            }
+        }
+
+        public int Delete(int id)
+        {
+            if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
+
+            var sqlComandText = $"DELETE FROM Appointment WHERE Id = {id}";
+
+            using (var command = new SQLiteCommand(sqlComandText))
+            {
+                return SetRecord(command);
             }
         }
 
