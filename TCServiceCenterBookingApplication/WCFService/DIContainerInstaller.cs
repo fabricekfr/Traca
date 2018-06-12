@@ -1,4 +1,8 @@
-﻿using Castle.MicroKernel.Registration;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
+using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using ClientModel.DataAccessObjects;

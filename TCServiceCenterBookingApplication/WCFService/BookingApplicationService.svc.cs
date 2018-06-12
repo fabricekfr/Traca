@@ -1,12 +1,15 @@
-﻿using System;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
+using ClientModel.DataAccessObjects;
+using ClientModel.DomainObjects;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.ServiceModel;
 using System.ServiceModel.Web;
-using ClientModel.DataAccessObjects;
-using ClientModel.DomainObjects;
 
 namespace WCFService
 {

@@ -1,9 +1,13 @@
-﻿using System;
-using System.Web;
-using Castle.Windsor;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
 using Castle.Facilities.WcfIntegration;
 using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using DataAccess;
+using System;
+using System.Web;
 
 namespace WCFService
 {

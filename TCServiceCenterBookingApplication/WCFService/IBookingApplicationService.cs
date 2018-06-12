@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿// Author: Kwitonda, Fabrice
+// Date: 2018-06-10
+// --------------------------------------
+
+
+using ClientModel.DomainObjects;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using ClientModel.DomainObjects;
-using Newtonsoft.Json;
 
 namespace WCFService
 {
