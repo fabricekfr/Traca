@@ -50,13 +50,16 @@ namespace DataAccess
             }
         }
 
-        public IAppointment GetByDate(DateTime date)
+        public IAppointment GetByCenterAndByDate(int centerId, DateTime date)
         {
+            if (centerId <= 0) throw new ArgumentOutOfRangeException(nameof(centerId));
+
             var sqlComandText = "SELECT Appointment.Id, Appointment.ClientFullName, Appointment.[Date], Center.StreetAddress, Center.Name, " +
                                 "       Appointment.Center, CenterType.Value AS CenterTypeValue, Center.CenterTypeId " +
                                 "FROM Appointment INNER JOIN Center ON Appointment.Center = Center.Id " +
                                 "                 INNER JOIN CenterType ON Center.CenterTypeId = CenterType.Id " +
-                                $"WHERE date(Appointment.[Date]) = date(\"{date.Date:yyyy-MM-dd}\")";
+                                $"WHERE Appointment.Center = {centerId} " +
+                                $"AND date(Appointment.[Date]) = date(\"{date.Date:yyyy-MM-dd}\")";
 
             using (var command = new SQLiteCommand(sqlComandText))
             {

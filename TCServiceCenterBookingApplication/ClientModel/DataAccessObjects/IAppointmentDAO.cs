@@ -12,7 +12,7 @@ namespace ClientModel.DataAccessObjects
     {
         IEnumerable<IAppointment> GetAll();
         IAppointment GetById(int id);
-        IAppointment GetByDate(DateTime date);
+        IAppointment GetByCenterAndByDate(int centerId, DateTime date);
         int Add(IAppointment appointment);
         int Update(int id, IAppointment appointment);
         int Delete(int id);

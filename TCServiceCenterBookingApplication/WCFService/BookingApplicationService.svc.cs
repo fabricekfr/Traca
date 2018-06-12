@@ -76,12 +76,12 @@ namespace WCFService
             if (!DateTime.TryParseExact(appointmentPostDataContract.Date, "yyyy-MM-dd",CultureInfo.InvariantCulture,DateTimeStyles.None,out date))
                 throw new WebFaultException<string>($"ERROR : The expected date format is YYYY-MM-DD but was {appointmentPostDataContract.Date}!", HttpStatusCode.BadRequest);
 
-            if (_AppointmentDAO.GetByDate(date) != null)
-                throw new WebFaultException<string>($"ERROR : This date {appointmentPostDataContract.Date} has already been booked!", HttpStatusCode.Conflict);
-
             if (_CenterDAO.GetById(appointmentPostDataContract.CenterId) == null)
                 throw new WebFaultException<string>($"ERROR : The center #{appointmentPostDataContract.CenterId} not exist!", HttpStatusCode.BadRequest);
-  
+
+            if (_AppointmentDAO.GetByCenterAndByDate(appointmentPostDataContract.CenterId, date) != null)
+                throw new WebFaultException<string>($"ERROR : This date {appointmentPostDataContract.Date} has already been booked for the center #{appointmentPostDataContract.CenterId}!", HttpStatusCode.Conflict);
+
             var appointment = _DomainObjectsFactory.CreateAppointment();
             appointment.ClientFullName = appointmentPostDataContract.ClientFullName;
             appointment.Date = date;
@@ -111,7 +111,10 @@ namespace WCFService
             DateTime date;
             if (!DateTime.TryParseExact(appointmentPostDataContract.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
                 throw new WebFaultException<string>($"ERROR : The expected date format is YYYY-MM-DD but was {appointmentPostDataContract.Date}!", HttpStatusCode.BadRequest);
-            
+
+            if (_AppointmentDAO.GetByCenterAndByDate(appointmentPostDataContract.CenterId, date) != null)
+                throw new WebFaultException<string>($"ERROR : This date {appointmentPostDataContract.Date} has already been booked for the center #{appointmentPostDataContract.CenterId}!", HttpStatusCode.Conflict);
+
             var appointment = _DomainObjectsFactory.CreateAppointment();
             appointment.Id = appointmentPostDataContract.Id;
             appointment.ClientFullName = appointmentPostDataContract.ClientFullName;

@@ -1,9 +1,5 @@
--- Script Date: 2018-06-06 14:41  - ErikEJ.SqlCeScripting version 3.5.2.73
--- Database information:
--- Database: C:\Users\fkwitond\Documents\Traca\TCServiceCenterBookingApplication\DataBase\TCDatabase
--- ServerVersion: 3.19.3
--- DatabaseSize: 16 KB
--- Created: 2018-06-06 13:47
+-- Author: Kwitonda, Fabrice
+-- Created: 2018-06-06
 
 -- User Table information:
 -- Number of tables: 3
