@@ -131,3 +131,4 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+/TCServiceCenterBookingApplication/.vs/TCServiceCenterBookingApplication/v15/Server/sqlite3
